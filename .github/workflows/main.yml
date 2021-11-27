@@ -3,49 +3,139 @@ name: CI / CD Pawn Simulator
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Global Env
+env:
+  cache-name: cache-node-modules
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  installing:
+    name: Install	🧩
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v2
-
-      # Caches node_modules to help improve performance.
-      - name: Cache node modules 📘
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          fetch-depth: 0
+      # Caches node_modules to help improve performance.
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: node-modules
+        with:
+          path: ./node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-        
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       # Setup Node on Ubuntu
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      
-      # Install and Build
-      - name: npm i and npm run build
-        run: |
-          npm i
-          npm run build
+          node-version: "14"
 
-      
+      # Install and Build
+      - name: Install and cache dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          echo '::debug::deps cache miss - installing deps'
+          npm install
+
+  linting:
+    name: Lint 🌀
+    runs-on: ubuntu-latest
+    needs: [installing]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Retrieve Cache
+        uses: actions/cache@v2
+        id: node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Lint angular ts files
+        run: npm run lint
+      - name: Lint angular scss files
+        run: npm run lint:styles
+
+  testing:
+    name: Test 🧪
+    runs-on: ubuntu-latest
+    needs: [installing]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Retrieve Cache
+        uses: actions/cache@v2
+        id: node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Unit/Integration Test with Jasmine/Karma
+        run: npm run test:ci
+
+  building:
+    name: Build ⚙️
+    runs-on: ubuntu-latest
+    needs: [installing, linting, testing]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Retrieve Cache
+        uses: actions/cache@v2
+        id: node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Build angular app
+        run: |
+          npm run build
+          cd ./www
+          cp index.html 404.html
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: angular-build
+          path: ./www
+      - name: Bump version and push tag
+        uses: hennejg/github-tag-action@v4.1.jh1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploying:
+    name: Deploy 🚀
+    runs-on: ubuntu-latest
+    needs: [installing, linting, testing, building]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: angular-build
+          path: ./public
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
