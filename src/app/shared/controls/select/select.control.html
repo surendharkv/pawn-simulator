@@ -1,0 +1,36 @@
+<ion-item class="psControl">
+  <ion-label
+    *ngIf="label"
+    [position]="position"
+    [innerHTML]="label"
+  ></ion-label>
+  <ion-select
+    #psControl
+    [formControl]="control"
+    [name]="key"
+    [placeholder]="placeholder"
+    interface="popover"
+    (focus)="focused$.next(true)"
+    (blur)="focused$.next(false)"
+  >
+    <ion-select-option
+      *ngFor="let option of options"
+      [value]="option.value"
+      [disabled]="option?.disabled"
+    >
+      {{ option?.displayValue || option?.value }}</ion-select-option
+    >
+  </ion-select>
+  <div *ngIf="hint || (!silent && !silentHint)" class="hint">
+    <ng-container *ngIf="control.dirty && error && !focused; else hintTemplate">
+      <span
+        *ngIf="control.dirty && error && !focused"
+        [innerHTML]="error"
+        class="error"
+      ></span>
+    </ng-container>
+    <ng-template #hintTemplate>
+      <span *ngIf="hint" [innerHTML]="hint"></span>
+    </ng-template>
+  </div>
+</ion-item>

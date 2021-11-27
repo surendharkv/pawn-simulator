@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  ion-item {
+    --min-height: 0;
+    --padding-top: 0;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-border-width: 0;
+    --background: transparent;
+    --background-activated: transparent;
+    --background-focused: transparent;
+    ion-label::ng-deep {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      color: #080f29c5;
+      text-transform: capitalize;
+      small {
+        font-weight: 400;
+        color: #999999;
+      }
+    }
+    ion-select {
+      background: #ffffff;
+      border: 1px solid #dbdfe5;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin-bottom: 4px;
+      --placeholder-color: #999999;
+      --placeholder-font-style: normal;
+      --placeholder-font-weight: normal;
+      --placeholder-opacity: 0.5;
+      --padding-top: 10px;
+      --padding-end: 16px;
+      --padding-bottom: 10px;
+      --padding-start: 10px;
+    }
+
+    .ng-invalid.ng-dirty:not(.silent):not(:focus) {
+      border: 1px solid #d95a4a;
+    }
+  }
+}

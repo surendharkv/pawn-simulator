@@ -8,6 +8,7 @@
     "build": "ng build --base-href=/pawn-simulator/ --configuration=production",
     "test": "ng test",
     "test:ci": "ng test --sourceMap=false --browsers=ChromeHeadless --watch=false",
+    "test:ci:debug": "ng test --sourceMap=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "lint:styles": "stylelint ./src/**/*.scss",

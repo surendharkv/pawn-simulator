@@ -1,7 +1,8 @@
-<div class="chessboard">
-  <table>
-    <tr *ngFor="let rows of board.info">
-      <td *ngFor="let cols of rows"><p [innerHtml]="cols.x"></p></td>
-    </tr>
-  </table>
-</div>
+<table>
+  <tr *ngFor="let rows of board.info; let i = index">
+    <td *ngFor="let cols of rows; let j = index">
+      <p [innerHtml]="cols.piece?.display"></p>
+      <span innerHtml="{{ cols.x }}{{ cols.y }}"></span>
+    </td>
+  </tr>
+</table>
