@@ -1,0 +1,19 @@
+// Media Queries
+
+$SmallScr: 767px;
+$MediumScr: 959px;
+$LandscapeScr: 1280px;
+$LargeScr: 1600px;
+$ExtraLargeScr: 1920px;
+
+@mixin mobile {
+  @media (max-width: #{$SmallScr}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$MediumScr}) {
+    @content;
+  }
+}

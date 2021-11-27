@@ -1,0 +1,38 @@
+@import '_mixins';
+
+.chessboard {
+  display: flex;
+  justify-content: center;
+  margin: 2vw;
+  padding: 2vw;
+}
+
+table {
+  border: solid #36424e 10px;
+  td {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    p {
+      text-align: center;
+      margin: 0px;
+      font-size: 30px;
+      // transform: rotate(-180deg);
+    }
+    @include mobile {
+      min-width: 40px;
+      width: 40px;
+      height: 40px;
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+table tr:nth-child(odd) td:nth-child(even) {
+  background: #a7b1bb;
+}
+table tr:nth-child(even) td:nth-child(odd) {
+  background: #a7b1bb;
+}
