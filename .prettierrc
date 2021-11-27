@@ -1,0 +1,7 @@
+{
+  "overrides": [{ "files": "*.html", "options": { "parser": "angular" } }],
+  "singleQuote": true,
+  "trailingComma": "all",
+  "endOfLine": "auto",
+  "printWidth": 80
+}
