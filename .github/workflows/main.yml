@@ -122,9 +122,10 @@ jobs:
           name: angular-build
           path: ./www
       - name: Bump version and push tag
-        uses: hennejg/github-tag-action@v4.1.jh1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
 
   deploying:
     name: Deploy 🚀
