@@ -8,6 +8,8 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
+@import '_mixins';
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 * {
   box-sizing: border-box;
@@ -28,3 +30,36 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+ion-item-group {
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  border: 1px solid #eceff4;
+  border-radius: 5px;
+  padding: 4px 16px 16px 16px;
+  margin-bottom: 16px;
+  min-width: 330px;
+  div {
+    display: flex;
+    justify-content: space-between;
+    > ps-input,
+    ps-select {
+      width: 47%;
+    }
+    &.numerics {
+      > ps-input,
+      ps-select {
+        width: 30%;
+      }
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    max-width: 330px;
+  }
+}

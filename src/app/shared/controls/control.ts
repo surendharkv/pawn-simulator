@@ -44,6 +44,8 @@ export abstract class ControlAbstractDirective
   // Optional
   @Input() clearable = false;
   @Input() silent = false;
+  @Input() min = 0;
+  @Input() max = 10000;
   @Input() silentHint = true;
   @Input() label: boolean | string = true;
   @Input() position: 'fixed' | 'stacked' | 'floating' = 'stacked';

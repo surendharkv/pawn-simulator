@@ -2,12 +2,19 @@
 
 section {
   display: flex;
+  margin: 2vw;
   > * {
-    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2vw;
     flex-basis: 0;
+    flex-grow: 1;
   }
   @include mobile {
-    height: 100vh;
     flex-direction: column;
+  }
+
+  @include tablet {
+    flex-wrap: wrap;
   }
 }

@@ -13,7 +13,7 @@ import { SharedModule } from './shared/shared.module';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ mode: 'ios' }),
     AppRoutingModule,
     SharedModule,
   ],

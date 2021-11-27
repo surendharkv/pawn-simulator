@@ -1,0 +1,8 @@
+<ion-item-group>
+  <h1>Pawn Simulator</h1>
+  <h5>Output:</h5>
+  <p
+    *ngFor="let item of board.history"
+    innerHtml="{{ item.pieceName }} {{ item.command }}"
+  ></p>
+</ion-item-group>

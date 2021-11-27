@@ -1,0 +1,50 @@
+<form [formGroup]="boardControls">
+  <ion-item-group>
+    <ps-select
+      key="command"
+      placeholder="Pick a command"
+      [options]="boardCommands"
+    ></ps-select>
+    <div class="numerics">
+      <ps-input
+        inputType="number"
+        key="x"
+        label="X Axis"
+        [min]="0"
+        [max]="board.rows - 1"
+        placeholder="0 - {{ board.rows - 1 }}"
+      ></ps-input>
+      <ps-input
+        inputType="number"
+        key="y"
+        label="Y Axis"
+        [min]="0"
+        [max]="board.columns - 1"
+        placeholder="0 - {{ board.columns - 1 }}"
+      ></ps-input>
+      <ps-input
+        inputType="number"
+        key="steps"
+        label="Steps"
+        [min]="1"
+        [max]="2"
+        placeholder="1 or 2"
+      ></ps-input>
+    </div>
+    <div>
+      <ps-select
+        key="direction"
+        placeholder="eg. {{ boardDirections[0].value }}"
+        [options]="boardDirections"
+      ></ps-select>
+      <ps-select
+        key="color"
+        placeholder="eg. {{ boardColors[0].value }}"
+        [options]="boardColors"
+      ></ps-select>
+    </div>
+  </ion-item-group>
+  <ion-button color="secondary" expand="block" (click)="submit()"
+    >Execute</ion-button
+  >
+</form>

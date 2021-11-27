@@ -8,6 +8,8 @@
     #psControl
     [formControl]="control"
     [name]="key"
+    [min]="min"
+    [max]="max"
     [type]="hide ? 'password' : inputType === 'password' ? 'text' : inputType"
     [placeholder]="placeholder"
     (focus)="focused$.next(true)"
