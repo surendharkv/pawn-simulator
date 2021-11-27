@@ -17,14 +17,14 @@
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": ["Page", "Component"]
+            "suffixes": ["Page", "Component", "Control"]
           }
         ],
         "@angular-eslint/component-selector": [
           "error",
           {
             "type": "element",
-            "prefix": "app",
+            "prefix": ["app", "ps"],
             "style": "kebab-case"
           }
         ],
