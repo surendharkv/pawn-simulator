@@ -16,7 +16,7 @@ export interface PieceInput {
 }
 
 export interface Piece extends PieceInput {
-  pieceName: 'pawn';
+  name: 'pawn';
   display: string;
   doublePossible: boolean;
 }

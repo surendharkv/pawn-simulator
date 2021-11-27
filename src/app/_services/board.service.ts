@@ -9,7 +9,7 @@ export class BoardService {
   rows = 8;
   columns = 8;
   info: ChessBoard = [];
-  history: Partial<PieceInput>[] = [];
+  history: Partial<Piece>[] = [];
 
   reset() {
     this.info = [...Array(this.rows).keys()]
@@ -30,7 +30,7 @@ export class BoardService {
 
   execute(inputs: Partial<PieceInput>) {
     try {
-      return this[inputs.command]({ ...inputs, pieceName: 'pawn' });
+      return this[inputs.command]({ ...inputs, name: 'pawn' });
     } catch (error) {
       console.log(error);
     }
