@@ -1,0 +1,7 @@
+<div class="chessboard">
+  <table>
+    <tr *ngFor="let rows of board.info">
+      <td *ngFor="let cols of rows"><p [innerHtml]="cols.x"></p></td>
+    </tr>
+  </table>
+</div>

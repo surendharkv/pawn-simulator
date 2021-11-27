@@ -1,0 +1,13 @@
+@import '_mixins';
+
+section {
+  display: flex;
+  > * {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  @include mobile {
+    height: 100vh;
+    flex-direction: column;
+  }
+}

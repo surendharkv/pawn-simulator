@@ -12,7 +12,11 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@ps/interfaces": ["src/app/interfaces"],
+      "@ps/enums": ["src/app/enums"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
