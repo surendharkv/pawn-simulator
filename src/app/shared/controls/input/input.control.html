@@ -17,6 +17,7 @@
     [attr.autocomplete]="autoComplete"
     [attr.spellcheck]="spellCheck"
     [attr.maxlength]="length ? length : null"
+    [attr.disabled]="disabled"
   ></ion-input>
   <div *ngIf="hint || (!silent && !silentHint)" class="hint">
     <ng-container *ngIf="control.dirty && error && !focused; else hintTemplate">

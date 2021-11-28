@@ -4,6 +4,7 @@ import { BoardControlsComponent } from 'src/app/components/board-controls/board-
 import { BoardComponent } from 'src/app/components/board/board.component';
 import { HistoryComponent } from 'src/app/components/history/history.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BoardService } from 'src/app/_services/board.service';
 
 import { HomePage } from './home.page';
 
@@ -20,7 +21,8 @@ describe('HomePage', () => {
           BoardControlsComponent,
           HistoryComponent,
         ],
-        imports: [IonicModule.forRoot(), SharedModule],
+        imports: [IonicModule.forRoot({ mode: 'ios' }), SharedModule],
+        providers: [BoardService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(HomePage);

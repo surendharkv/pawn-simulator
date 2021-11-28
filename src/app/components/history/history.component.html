@@ -1,8 +1,17 @@
 <ion-item-group>
   <h1>Pawn Simulator</h1>
-  <h5>Output:</h5>
-  <p
-    *ngFor="let piece of board.history"
-    innerHtml="{{ piece?.name }} {{ piece.command }}"
-  ></p>
+  <h5>History:</h5>
+  <section>
+    <ion-list lines="none">
+      <ion-item *ngFor="let square of board.history">
+        <p
+          innerHtml="{{
+            pieces[square?.piece?.name || 'pawn'][
+              square?.piece?.color || 'white'
+            ]
+          }} {{ square?.piece.command }}"
+        ></p>
+      </ion-item>
+    </ion-list>
+  </section>
 </ion-item-group>

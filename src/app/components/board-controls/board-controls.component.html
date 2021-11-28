@@ -12,6 +12,7 @@
         label="X Axis"
         [min]="0"
         [max]="board.rows - 1"
+        [disabled]="disablePlace"
         placeholder="0 - {{ board.rows - 1 }}"
       ></ps-input>
       <ps-input
@@ -20,6 +21,7 @@
         label="Y Axis"
         [min]="0"
         [max]="board.columns - 1"
+        [disabled]="disablePlace"
         placeholder="0 - {{ board.columns - 1 }}"
       ></ps-input>
       <ps-input
@@ -28,6 +30,7 @@
         label="Steps"
         [min]="1"
         [max]="2"
+        [disabled]="disableMove"
         placeholder="1 or 2"
       ></ps-input>
     </div>
@@ -36,15 +39,21 @@
         key="direction"
         placeholder="eg. {{ boardDirections[0].value }}"
         [options]="boardDirections"
+        [disabled]="disablePlace"
       ></ps-select>
       <ps-select
         key="color"
         placeholder="eg. {{ boardColors[0].value }}"
         [options]="boardColors"
+        [disabled]="disablePlace"
       ></ps-select>
     </div>
   </ion-item-group>
-  <ion-button color="secondary" expand="block" (click)="submit()"
+  <ion-button
+    color="secondary"
+    expand="block"
+    (click)="submit()"
+    [disabled]="boardControls.invalid"
     >Execute</ion-button
   >
 </form>

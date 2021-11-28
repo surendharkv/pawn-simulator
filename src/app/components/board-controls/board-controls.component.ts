@@ -1,19 +1,23 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { COLORS, COMMANDS, DIRECTIONS } from '@ps/enums';
+import { COLORS, Command, COMMANDS, DIRECTIONS } from '@ps/enums';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged, filter } from 'rxjs/operators';
 import { BoardService } from 'src/app/_services/board.service';
 
 @Component({
   selector: 'app-board-controls',
   templateUrl: './board-controls.component.html',
   styleUrls: ['./board-controls.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardControlsComponent implements OnInit {
+export class BoardControlsComponent implements OnInit, OnDestroy {
   boardControls: FormGroup;
   boardCommands = COMMANDS.map((value) => ({ value }));
   boardDirections = DIRECTIONS.map((value) => ({ value }));
   boardColors = COLORS.map((value) => ({ value }));
+  command$: Subscription;
+  disablePlace = false;
+  disableMove = true;
 
   constructor(private fb: FormBuilder, public board: BoardService) {}
 
@@ -27,9 +31,36 @@ export class BoardControlsComponent implements OnInit {
       direction: null,
       color: null,
     });
+    this.command$ = this.boardControls.controls.command.valueChanges
+      .pipe(
+        filter((v: Command) => !!v),
+        distinctUntilChanged(),
+      )
+      .subscribe(this.resetAndDisable.bind(this));
   }
 
-  submit() {
-    this.board.execute(this.boardControls.value);
+  resetAndDisable(command: Command) {
+    this.boardControls.reset();
+    this.boardControls.controls.command.patchValue(command);
+    if (command === 'place') {
+      this.disablePlace = false;
+      this.disableMove = true;
+      return;
+    }
+    if (command === 'move') {
+      this.disablePlace = true;
+      this.disableMove = false;
+      return;
+    }
+    this.disablePlace = true;
+    this.disableMove = true;
+  }
+
+  ngOnDestroy(): void {
+    this.command$.unsubscribe();
+  }
+
+  async submit() {
+    await this.board.execute(this.boardControls.value);
   }
 }
