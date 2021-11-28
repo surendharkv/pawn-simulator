@@ -4,9 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { InputControl } from './controls/input/input.control';
 import { SelectControl } from './controls/select/select.control';
-import { TextareaControl } from './controls/textarea/textarea.control';
 
-const declareAndExport = [InputControl, TextareaControl, SelectControl];
+const declareAndExport = [InputControl, SelectControl];
 const importAndExport = [IonicModule, FormsModule, ReactiveFormsModule];
 
 @NgModule({

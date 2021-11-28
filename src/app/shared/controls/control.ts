@@ -66,7 +66,7 @@ export abstract class ControlAbstractDirective
 
   get control(): FormControl {
     return (this.formControl ||
-      this.controlContainer.control?.get(this.key)) as FormControl;
+      this.controlContainer?.control?.get(this.key)) as FormControl;
   }
 
   constructor(

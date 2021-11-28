@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { BoardService } from 'src/app/_services/board.service';
 
 import { HistoryComponent } from './history.component';
 
@@ -11,7 +12,8 @@ describe('HistoryComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [HistoryComponent],
-        imports: [IonicModule.forRoot()],
+        imports: [IonicModule.forRoot({ mode: 'ios' })],
+        providers: [BoardService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(HistoryComponent);

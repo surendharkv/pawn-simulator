@@ -12,6 +12,7 @@
     interface="popover"
     (focus)="focused$.next(true)"
     (blur)="focused$.next(false)"
+    [attr.disabled]="disabled"
   >
     <ion-select-option
       *ngFor="let option of options"

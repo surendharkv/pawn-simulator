@@ -7,6 +7,15 @@ h5 {
   color: darkgray;
 }
 
-p {
-  color: darkgray;
+section {
+  height: 300px;
+  max-height: 270px;
+  overflow-y: scroll;
+  ion-list {
+    --ion-item-background: transparent;
+  }
+  p {
+    text-transform: capitalize;
+    color: darkgray;
+  }
 }

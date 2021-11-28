@@ -3,7 +3,7 @@ import { Color, Command, Direction, XCoordinate, YCoordinate } from '@ps/enums';
 export interface Square {
   x: XCoordinate;
   y: YCoordinate;
-  piece?: Piece;
+  piece?: Partial<Piece>;
 }
 
 export interface PieceInput {
@@ -12,11 +12,11 @@ export interface PieceInput {
   y: YCoordinate;
   direction: Direction;
   color: Color;
-  steps: 1 | 2;
+  steps: number;
 }
 
 export interface Piece extends PieceInput {
-  name: 'pawn';
+  name: string;
   display: string;
   doublePossible: boolean;
 }
